@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>arduinoIDE导入esp32开发板方法</title>
+      <link href="2021/06/02/esp32-arduinoIDE/"/>
+      <url>2021/06/02/esp32-arduinoIDE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Arduino环境配置"><a href="#Arduino环境配置" class="headerlink" title="Arduino环境配置"></a>Arduino环境配置</h1><p>首先我们要先去下载Arduino，大家可以去官网下，也可以在Arduino中文社区进行下载，这是中文社区网址<a href="https://www.arduino.cn/">https://www.arduino.cn/</a>。</p><p><img src="https://www.hualigs.cn/image/60b720e41b38a.jpg"></p><h1 id="Arduino添加esp32开发板"><a href="#Arduino添加esp32开发板" class="headerlink" title="Arduino添加esp32开发板"></a>Arduino添加esp32开发板</h1><p>两种方法，arduinoIDE中直接下载，或者使用源码下载：</p><h2 id="方法一（arduino中下载）："><a href="#方法一（arduino中下载）：" class="headerlink" title="方法一（arduino中下载）："></a>方法一（arduino中下载）：</h2><p>文件&gt;首选项&gt;附加开发板管理器网址 中加入Arduino for esp的地址:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;dl.espressif.com&#x2F;dl&#x2F;package_esp32_index.json</span><br><span class="line">http:&#x2F;&#x2F;arduino.esp8266.com&#x2F;stable&#x2F;package_esp8266com_index.json</span><br></pre></td></tr></table></figure><p><img src="https://i0.hdslb.com/bfs/album/eb3de20abbb0e63b4dcfb9f88918c3232cb3646c.gif"></p><p>完成网址添加后就可以在：工具&gt;开发板&gt;开发板管理器 中搜索并下载esp32开发板数据包（版本选1.0.2）:</p><p><img src="https://i0.hdslb.com/bfs/album/dd41db11f4caa1d9d5b718278ead80863b93ebb6.gif"></p><h3 id="出错记录"><a href="#出错记录" class="headerlink" title="出错记录"></a>出错记录</h3><p><font color=#FF0000>这里的版本最好要选1.0.2!!!!!!!</font>  </p><p>我最开始用的最新1.0.6版本，烧录esp32cam的示例无法正常运行，换成1.0.2就好了</p><p><img src="https://www.hualigs.cn/image/60b7826762a8e.jpg"></p><h2 id="方法二（源码下载）："><a href="#方法二（源码下载）：" class="headerlink" title="方法二（源码下载）："></a>方法二（源码下载）：</h2><p>先去github下载源码：</p><p><a href="https://github.com/espressif/arduino-esp32/">https://github.com/espressif/arduino-esp32/</a></p><p>在arduino的安装目录下找到hardware，新建espressif，再在里面新建esp32，然后把下载的压缩包全都放在目录下面</p><p><img src="https://www.hualigs.cn/image/60b72bbe84d25.jpg"></p><p>打开当前文件夹的tools目录，运行get.exe。然后重启arduino即可。</p><p><img src="https://www.hualigs.cn/image/60b72ca087f3a.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tutorials </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> esp32 </tag>
+            
+            <tag> arduino </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>apache2启动报错排查</title>
       <link href="2021/05/31/apache2-err/"/>
       <url>2021/05/31/apache2-err/</url>
