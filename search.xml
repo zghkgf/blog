@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>stm32时钟系统</title>
+      <link href="2021/06/18/stm32-timer/"/>
+      <url>2021/06/18/stm32-timer/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://www.hualigs.cn/image/60cc307a42f31.jpg" alt="stm32时钟树"></p><ol><li>STM32 有5个时钟源:HSI、HSE、LSI、LSE、PLL。   <ul><li>HSI是高速内部时钟，RC振荡器，频率为16MHz，精度不高。可以直接作为系统<br>时钟或者用作PLL时钟输入。       </li><li>HSE是高速外部时钟，可接石英/陶瓷谐振器，或者接外部时钟源，频率范围为4MHz~26MHz。   </li><li>LSI是低速内部时钟，RC振荡器，频率为32kHz，提供低功耗时钟。主要供独立看    门狗和自动唤醒单元使用。    </li><li>LSE是低速外部时钟，接频率为32.768kHz的石英晶体。RTC    　 </li><li>PLL为锁相环倍频输出。STM32F4有两个PLL:   <ul><li>主PLL(PLL)由HSE或者HSI提供时钟信号，并具有两个不同的输出时钟。  <ul><li>第一个输出PLLP用于生成高速的系统时钟（最高168MHz）    </li><li>第二个输出PLLQ用于生成USB OTG FS的时钟（48MHz），随机数发生器的时钟和SDIO时钟。  </li></ul></li><li>专用PLL(PLLI2S)用于生成精确时钟，从而在I2S接口实现高品质音频性能。</li></ul></li></ul></li></ol><ol start="2"><li>系统时钟SYSCLK可来源于三个时钟源：  <ul><li>HSI振荡器时钟  </li><li>HSE振荡器时钟  </li><li>PLL时钟  </li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> stm32 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>STM32命名规则</title>
+      <link href="2021/06/15/STM32-name/"/>
+      <url>2021/06/15/STM32-name/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://www.hualigs.cn/image/60c878ac47d87.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> STM32 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>arduinoIDE导入esp32开发板方法</title>
       <link href="2021/06/02/esp32-arduinoIDE/"/>
       <url>2021/06/02/esp32-arduinoIDE/</url>
