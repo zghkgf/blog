@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>电容器件选型</title>
+      <link href="2021/12/07/cChoice/"/>
+      <url>2021/12/07/cChoice/</url>
+      
+        <content type="html"><![CDATA[<h1 id="电容参数描述"><a href="#电容参数描述" class="headerlink" title="电容参数描述"></a>电容参数描述</h1><p>CAP CER 0.1UF 16V Y5V 0402<br>CAP TANT 1UF 10% 10V 1206<br>|CAP|CER|0.1UF|16V|Y5V|0402|<br>|:—:|:—:|:—:|:—:|:—:|:—:|<br>|电容|陶瓷|容值|电压|类型|封装|</p><h1 id="电容参数特性"><a href="#电容参数特性" class="headerlink" title="电容参数特性"></a>电容参数特性</h1><p>（1）容量和误差：实际电容量和标称电容量允许的最大偏差范围。在选型上注意精度等级，用字母表示：D——±0.5%，F——±1%，G——±2%，J——±5 % ，K——±10%，M——±20%。<br>（2）额定工作电压：电容器在电路中能够长期稳定、可靠工作，所承受的最大直流电压。<br>（3）绝缘电阻：表示漏电大小，一般绝缘电阻越大越好，漏电也小电解电容的绝缘电阻一般较小。<br>（4）正切角损耗：在电场的作用下，电容器在单位时间内发热而消耗的能量。<br>（5）温度系数：在一定温度范围内，温度每变化1℃，电容量的相对变化值。温度系数越小越好。<br>（6）频率特性:电容器的电参数随电场频率而变化的性质。在高频条件下工作的电容器，由于介电常数在高频时比低频时小，电容量也相应减小。损耗也随频率的升高而增加。<br>（7）等效串联电阻（ESR）：损耗较大产品的ESR较大；随着容量的增大，产品的ESR将变小；钽电容的ESR特别小。  </p><h1 id="电容分类"><a href="#电容分类" class="headerlink" title="电容分类"></a>电容分类</h1><ol><li>陶瓷介质类</li><li>电解类： 钽、铝电解液</li><li>其他类（有机薄膜、云母、云母纸、空气）</li></ol><h1 id="电容型号命名"><a href="#电容型号命名" class="headerlink" title="电容型号命名"></a>电容型号命名</h1><p>依据(GB2470 -81 ) ，国产电容的型号命名一般由四部分组成，依次分别代表名称、材料、分类和序号。</p><ul><li>第一部分：名称，用字母表示，电容器用C。</li><li>第二部分：材料，用字母表示。</li><li>第三部分：分类，一般用数字表示，个别用字母表示。</li><li>第四部分：序号，用数字表示</li></ul><p><img src="https://www.hualigs.cn/image/60bdb77a0c4f3.jpg"></p><h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p><img src="https://www.hualigs.cn/image/60bdb8350b823.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HardWare </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电阻器件选型</title>
+      <link href="2021/12/07/rChoice/"/>
+      <url>2021/12/07/rChoice/</url>
+      
+        <content type="html"><![CDATA[<h1 id="电阻器件选型"><a href="#电阻器件选型" class="headerlink" title="电阻器件选型"></a>电阻器件选型</h1><h1 id="电阻介绍"><a href="#电阻介绍" class="headerlink" title="电阻介绍"></a>电阻介绍</h1><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul><li>薄膜电阻：碳膜电阻、合成碳膜电阻、尽速氧化膜电阻…</li><li>绕线电阻：通用绕线电阻、功率绕线电阻、高频线绕线电阻…</li><li>实心电阻: 无机合成实心碳质电阻和有机…</li><li>特种电阻：湿敏电阻、热敏电阻、压敏电阻、光敏电阻、磁敏电阻、力敏电阻、气敏电阻。</li></ul><p><img src="https://www.hualigs.cn/image/60bda059be184.jpg"><br>常用为金属膜电阻（直插），金属玻璃铀电阻（贴片）</p><p>电阻描述示例：<br>RES SMD 22K OHM 1% 1/16W 0402  </p><table><thead><tr><th align="center">RES</th><th align="center">SMD</th><th align="center">22K</th><th align="center">OHM</th><th align="center">1%</th><th align="center">1/16W</th><th align="center">0402</th></tr></thead><tbody><tr><td align="center">电阻</td><td align="center">贴片</td><td align="center">阻值</td><td align="center">精度</td><td align="center">精度</td><td align="center">功率</td><td align="center">封装</td></tr></tbody></table><h2 id="选型要点"><a href="#选型要点" class="headerlink" title="选型要点"></a>选型要点</h2><ul><li>电阻的<em><strong>阻值</strong></em>满足应用电路使用。</li><li>电阻的<em><strong>额定功率</strong></em>大于电阻在应用电路实际工作功率。一般按额定功率70%降额设计选用。</li><li>电阻在应用电路中<em><strong>实际工作电压</strong></em>小于最大工作电压。一般按最高工作电压的75%降额设计选用。</li><li>电阻的<em><strong>稳定性、工作频率、噪声</strong></em>等特性满足应用电路要求。</li></ul><h1 id="阻值的表示"><a href="#阻值的表示" class="headerlink" title="阻值的表示"></a>阻值的表示</h1><p>标称阻值的表示方法采用GB/T2471中的E24、E48、E96、E192系列。</p><ul><li>E24:三位数字表述。前两位表示有效数字，第三位表示0的个数。</li><li>E96:四位字符表述。前三位表示有效数字，第四位表示0的个数。</li><li>E96系列三位字符表示法：用三位字符表示阻值，前两位数字表示E96系列序号，第三位代表10的n次幂</li></ul><h1 id="功率"><a href="#功率" class="headerlink" title="功率"></a>功率</h1><p>大部分情况下如下表所示：<br><img src="https://www.hualigs.cn/image/60bda851e7dd1.jpg"></p><h1 id="电阻尺寸"><a href="#电阻尺寸" class="headerlink" title="电阻尺寸"></a>电阻尺寸</h1><p><img src="https://www.hualigs.cn/image/60bda8bd87b93.jpg"></p><h1 id="上拉电阻"><a href="#上拉电阻" class="headerlink" title="上拉电阻"></a>上拉电阻</h1><h2 id="需要上拉的情况"><a href="#需要上拉的情况" class="headerlink" title="需要上拉的情况"></a>需要上拉的情况</h2><ol><li>TTL电路驱动coms电路时。</li><li>oc门电路加上拉电阻。</li><li>为加大输出引脚的驱动能力，有的单片机管脚上也常使用上拉电阻。</li><li>不适用管教。</li><li>线传输中电阻的匹配，一直反射波干扰…</li></ol><h2 id="上拉电阻选择"><a href="#上拉电阻选择" class="headerlink" title="上拉电阻选择"></a>上拉电阻选择</h2><ol><li>从节约功耗考虑应当足够大；电阻大，电流小。</li><li>从足够的驱动电流考虑应当足够小；电阻小，电流大。</li><li>对于高速电路，过大的上拉电阻可能边沿变平缓。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HardWare </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Github使用流程</title>
       <link href="2021/09/04/github-log/"/>
       <url>2021/09/04/github-log/</url>
