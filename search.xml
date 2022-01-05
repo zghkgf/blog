@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>coturn服务器搭建及踩坑</title>
+      <link href="2022/01/05/coturn-server/"/>
+      <url>2022/01/05/coturn-server/</url>
+      
+        <content type="html"><![CDATA[<h1 id="安装coturn"><a href="#安装coturn" class="headerlink" title="安装coturn"></a>安装coturn</h1><p>安装之前，先确保使用以下命令将apt-get更新到最新：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><p>安装coturn：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install coturn</span><br></pre></td></tr></table></figure><p>请确保使用以下命令在安装软件包后停止该服务, 因为安装完成后它将自动启动：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop coturn</span><br></pre></td></tr></table></figure><h1 id="生成证书文件"><a href="#生成证书文件" class="headerlink" title="生成证书文件"></a>生成证书文件</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo openssl req -x509 -newkey rsa:2048 -keyout /etc/turn_server_pkey.pem -out /etc/turn_server_cert.pem -days 99999 -nodes </span><br></pre></td></tr></table></figure><h1 id="备份并创建配置文件"><a href="#备份并创建配置文件" class="headerlink" title="备份并创建配置文件"></a>备份并创建配置文件</h1><p>安装好coturn后会在<code>/etc</code>目录下创建<code>turnserver.conf</code><br>首先备份：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> copy the original turnserver configuration file to a backup <span class="keyword">in</span> the same directory</span></span><br><span class="line">cp /etc/turnserver.conf /etc/turnserver.conf.original</span><br></pre></td></tr></table></figure><p>用编辑器编辑<code>turnserver.conf</code>:  </p><blockquote><p>tips:<strong>内网地址</strong>是使用<code>ifconfig</code>后显示的地址，<strong>外网地址</strong>云服务器公网地址</p></blockquote><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listening-device=eth0</span><br><span class="line">listening-port=3478</span><br><span class="line">tls-listening-port=5349   </span><br><span class="line">listening-ip=&lt;内网地址&gt;   </span><br><span class="line">external-ip=&lt;外网地址&gt;</span><br><span class="line">server-name=&lt;域名&gt;</span><br><span class="line">realm=&lt;域名&gt;</span><br><span class="line">lt-cred-mech                                                                                                   </span><br><span class="line">userdb=/var/lib/turn/turndb                                                                               </span><br><span class="line">cert=/etc/turn_server_cert.pem                                                                           </span><br><span class="line">pkey=/etc/turn_server_pkey.pem                                                                         </span><br><span class="line">no-stdout-log                                                                                                   </span><br><span class="line">log-file=/var/tmp/turnserver.log                                                                         </span><br><span class="line">pidfile=&quot;/var/run/turnserver.pid&quot; </span><br><span class="line">user=&lt;用户名&gt;:&lt;密码&gt;</span><br><span class="line">cli-password=qwerty</span><br></pre></td></tr></table></figure><p>编辑<code>/etc/default/coturn</code>文件(去掉下面这句前面的#)：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">TURNSERVER_ENABLED&#x3D;1</span><br></pre></td></tr></table></figure><h1 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h1><p>云服务器端口打开：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1-65535 UDP  </span><br><span class="line">3478 TCP</span><br></pre></td></tr></table></figure><p>重启coturn：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">service coturn restart</span><br></pre></td></tr></table></figure><p>这将启动服务器中的coturn服务。你可以使用以下命令检查服务的状态：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status coturn</span><br></pre></td></tr></table></figure><p><img src="http://inews.gtimg.com/newsapp_ls/0/14387009492/0"></p><blockquote><p><strong>这里我踩的坑</strong>：记得关掉软件防火墙（ufw）!!!!!!!!!!<br><img src="https://www.hualigs.cn/image/61d53130d1868.jpg"></p></blockquote><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>测试地址:<a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a><br>看到 relay 类型的就说明成功了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tutorials </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> coturn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>电容器件选型</title>
       <link href="2021/12/07/cChoice/"/>
       <url>2021/12/07/cChoice/</url>
@@ -401,9 +426,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> github </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       

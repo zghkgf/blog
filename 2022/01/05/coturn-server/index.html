@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>coturn服务器搭建及踩坑 | LP's blog</title><meta name="keywords" content="coturn"><meta name="author" content="Patrick"><meta name="copyright" content="Patrick"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="安装coturn安装之前，先确保使用以下命令将apt-get更新到最新： sudo apt-get update 安装coturn： sudo apt-get install coturn 请确保使用以下命令在安装软件包后停止该服务, 因为安装完成后它将自动启动： systemctl stop coturn  生成证书文件sudo openssl req -x509 -newkey rsa:204">
+<meta property="og:type" content="article">
+<meta property="og:title" content="coturn服务器搭建及踩坑">
+<meta property="og:url" content="http://callmelp.online/2022/01/05/coturn-server/index.html">
+<meta property="og:site_name" content="LP&#39;s blog">
+<meta property="og:description" content="安装coturn安装之前，先确保使用以下命令将apt-get更新到最新： sudo apt-get update 安装coturn： sudo apt-get install coturn 请确保使用以下命令在安装软件包后停止该服务, 因为安装完成后它将自动启动： systemctl stop coturn  生成证书文件sudo openssl req -x509 -newkey rsa:204">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs3.51cto.com%2Foss%2F202101%2F28%2Fe85e03b206f0420c6d3f6868b77cd5bc.jpg-wh_651x-s_1926212894.jpg&refer=http%3A%2F%2Fs3.51cto.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643951251&t=ed763c5bf189ae005a6bb754bc5738de">
+<meta property="article:published_time" content="2022-01-05T05:05:14.000Z">
+<meta property="article:modified_time" content="2022-01-05T05:52:45.465Z">
+<meta property="article:author" content="Patrick">
+<meta property="article:tag" content="coturn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs3.51cto.com%2Foss%2F202101%2F28%2Fe85e03b206f0420c6d3f6868b77cd5bc.jpg-wh_651x-s_1926212894.jpg&refer=http%3A%2F%2Fs3.51cto.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643951251&t=ed763c5bf189ae005a6bb754bc5738de"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://callmelp.online/2022/01/05/coturn-server/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":20,"languages":{"author":"作者: Patrick","link":"链接: ","source":"来源: LP's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'coturn服务器搭建及踩坑',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2022-01-05 13:52:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/video.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/me.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs3.51cto.com%2Foss%2F202101%2F28%2Fe85e03b206f0420c6d3f6868b77cd5bc.jpg-wh_651x-s_1926212894.jpg&amp;refer=http%3A%2F%2Fs3.51cto.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1643951251&amp;t=ed763c5bf189ae005a6bb754bc5738de')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LP's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">coturn服务器搭建及踩坑</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-05T05:05:14.000Z" title="发表于 2022-01-05 13:05:14">2022-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-05T05:52:45.465Z" title="更新于 2022-01-05 13:52:45">2022-01-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Tutorials/">Tutorials</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="coturn服务器搭建及踩坑"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="安装coturn"><a href="#安装coturn" class="headerlink" title="安装coturn"></a>安装coturn</h1><p>安装之前，先确保使用以下命令将apt-get更新到最新：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>安装coturn：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install coturn</span><br></pre></td></tr></table></figure>
+<p>请确保使用以下命令在安装软件包后停止该服务, 因为安装完成后它将自动启动：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop coturn</span><br></pre></td></tr></table></figure>
+
+<h1 id="生成证书文件"><a href="#生成证书文件" class="headerlink" title="生成证书文件"></a>生成证书文件</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo openssl req -x509 -newkey rsa:2048 -keyout /etc/turn_server_pkey.pem -out /etc/turn_server_cert.pem -days 99999 -nodes </span><br></pre></td></tr></table></figure>
+
+<h1 id="备份并创建配置文件"><a href="#备份并创建配置文件" class="headerlink" title="备份并创建配置文件"></a>备份并创建配置文件</h1><p>安装好coturn后会在<code>/etc</code>目录下创建<code>turnserver.conf</code><br>首先备份：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> copy the original turnserver configuration file to a backup <span class="keyword">in</span> the same directory</span></span><br><span class="line">cp /etc/turnserver.conf /etc/turnserver.conf.original</span><br></pre></td></tr></table></figure>
+<p>用编辑器编辑<code>turnserver.conf</code>:  </p>
+<blockquote>
+<p>tips:<strong>内网地址</strong>是使用<code>ifconfig</code>后显示的地址，<strong>外网地址</strong>云服务器公网地址</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listening-device=eth0</span><br><span class="line">listening-port=3478</span><br><span class="line">tls-listening-port=5349   </span><br><span class="line">listening-ip=&lt;内网地址&gt;   </span><br><span class="line">external-ip=&lt;外网地址&gt;</span><br><span class="line">server-name=&lt;域名&gt;</span><br><span class="line">realm=&lt;域名&gt;</span><br><span class="line">lt-cred-mech                                                                                                   </span><br><span class="line">userdb=/var/lib/turn/turndb                                                                               </span><br><span class="line">cert=/etc/turn_server_cert.pem                                                                           </span><br><span class="line">pkey=/etc/turn_server_pkey.pem                                                                         </span><br><span class="line">no-stdout-log                                                                                                   </span><br><span class="line">log-file=/var/tmp/turnserver.log                                                                         </span><br><span class="line">pidfile=&quot;/var/run/turnserver.pid&quot; </span><br><span class="line">user=&lt;用户名&gt;:&lt;密码&gt;</span><br><span class="line">cli-password=qwerty</span><br></pre></td></tr></table></figure>
+<p>编辑<code>/etc/default/coturn</code>文件(去掉下面这句前面的#)：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">TURNSERVER_ENABLED&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<h1 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h1><p>云服务器端口打开：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1-65535 UDP  </span><br><span class="line">3478 TCP</span><br></pre></td></tr></table></figure>
+<p>重启coturn：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">service coturn restart</span><br></pre></td></tr></table></figure>
+<p>这将启动服务器中的coturn服务。你可以使用以下命令检查服务的状态：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status coturn</span><br></pre></td></tr></table></figure>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/14387009492/0"></p>
+<blockquote>
+<p><strong>这里我踩的坑</strong>：记得关掉软件防火墙（ufw）!!!!!!!!!!<br><img src="https://www.hualigs.cn/image/61d53130d1868.jpg"></p>
+</blockquote>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>测试地址:<a target="_blank" rel="noopener" href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a><br>看到 relay 类型的就说明成功了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Patrick</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://callmelp.online/2022/01/05/coturn-server/">http://callmelp.online/2022/01/05/coturn-server/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://callmeLP.online" target="_blank">LP's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/coturn/">coturn</a></div><div class="post_share"><div class="social-share" data-image="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs3.51cto.com%2Foss%2F202101%2F28%2Fe85e03b206f0420c6d3f6868b77cd5bc.jpg-wh_651x-s_1926212894.jpg&amp;refer=http%3A%2F%2Fs3.51cto.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1643951251&amp;t=ed763c5bf189ae005a6bb754bc5738de" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://www.hualigs.cn/image/60a741b2608cd.jpg" target="_blank"><img class="post-qr-code-img" src="https://www.hualigs.cn/image/60a741b2608cd.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://www.hualigs.cn/image/60a741797c988.jpg" target="_blank"><img class="post-qr-code-img" src="https://www.hualigs.cn/image/60a741797c988.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/12/07/cChoice/"><img class="next-cover" src="https://bkimg.cdn.bcebos.com/pic/8601a18b87d6277f289c5a312b381f30e924fc29?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2UyMjA=,g_7,xp_5,yp_5/format,f_auto" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">电容器件选型</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/me.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Patrick</div><div class="author-info__description">自称全栈工程师</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/callmeLP"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/callmeLP" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:343786790@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://www.zhihu.com/people/serenade-96-19" target="_blank" title="zhihu"><i class="fab fa-zhihu"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85coturn"><span class="toc-number">1.</span> <span class="toc-text">安装coturn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">生成证书文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%B9%B6%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">备份并创建配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-number">4.</span> <span class="toc-text">开放端口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">测试</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/05/coturn-server/" title="coturn服务器搭建及踩坑"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs3.51cto.com%2Foss%2F202101%2F28%2Fe85e03b206f0420c6d3f6868b77cd5bc.jpg-wh_651x-s_1926212894.jpg&amp;refer=http%3A%2F%2Fs3.51cto.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1643951251&amp;t=ed763c5bf189ae005a6bb754bc5738de" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="coturn服务器搭建及踩坑"/></a><div class="content"><a class="title" href="/2022/01/05/coturn-server/" title="coturn服务器搭建及踩坑">coturn服务器搭建及踩坑</a><time datetime="2022-01-05T05:05:14.000Z" title="发表于 2022-01-05 13:05:14">2022-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/07/cChoice/" title="电容器件选型"><img src="https://bkimg.cdn.bcebos.com/pic/8601a18b87d6277f289c5a312b381f30e924fc29?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2UyMjA=,g_7,xp_5,yp_5/format,f_auto" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电容器件选型"/></a><div class="content"><a class="title" href="/2021/12/07/cChoice/" title="电容器件选型">电容器件选型</a><time datetime="2021-12-07T04:46:09.000Z" title="发表于 2021-12-07 12:46:09">2021-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/07/rChoice/" title="电阻器件选型"><img src="https://baike.baidu.com/pic/%E7%94%B5%E9%98%BB%E5%99%A8/10614576/0/8d5494eef01f3a294b7acd9d9a25bc315c607c36?fr=lemma&amp;ct=single#aid=0&amp;pic=8d5494eef01f3a294b7acd9d9a25bc315c607c36" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电阻器件选型"/></a><div class="content"><a class="title" href="/2021/12/07/rChoice/" title="电阻器件选型">电阻器件选型</a><time datetime="2021-12-07T04:37:58.000Z" title="发表于 2021-12-07 12:37:58">2021-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/04/github-log/" title="Github使用流程"><img src="https://image.3001.net/images/20190312/1552382427_5c8779db83bdb.jpeg!small" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Github使用流程"/></a><div class="content"><a class="title" href="/2021/09/04/github-log/" title="Github使用流程">Github使用流程</a><time datetime="2021-09-04T14:41:39.000Z" title="发表于 2021-09-04 22:41:39">2021-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/03/mosquitto-tutorial/" title="mosquitto(MQTT)ubuntu搭建教程"><img src="https://www.hualigs.cn/image/6131bdfe011be.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mosquitto(MQTT)ubuntu搭建教程"/></a><div class="content"><a class="title" href="/2021/09/03/mosquitto-tutorial/" title="mosquitto(MQTT)ubuntu搭建教程">mosquitto(MQTT)ubuntu搭建教程</a><time datetime="2021-09-02T21:47:06.000Z" title="发表于 2021-09-03 05:47:06">2021-09-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Patrick</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'oYv71MVDp4E6q2tg0PEzNyns-gzGzoHsz',
+      appKey: 'ljivoAUqxqrxlExQo7yIrgcg',
+      placeholder: '1.在昵称处填写QQ号，会自动补全QQ邮箱、昵称，自动获取QQ头像\n2.您的评论若有回复会收到邮件通知，请确保邮箱真实有效\n3.留言可以使用Markdown格式',
+      avatar: 'retro',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.16/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?callmeLP";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="callmeLP";
+            var parent_div_git = document.getElementById('recent-posts');
+            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementById('recent-posts')){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style>undefined</style><!-- hexo injector body_end end --></body></html>
