@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>apache2配置ssl证书使用https，反向代理</title>
+      <link href="2022/01/05/apache-ssl/"/>
+      <url>2022/01/05/apache-ssl/</url>
+      
+        <content type="html"><![CDATA[<p>证书申请过程这里不介绍，apache证书文件包含以下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1_root_bundle.crt # 证书文件</span><br><span class="line">2_xxx.xxx.xxx.crt # 证书文件</span><br><span class="line">3_xxx.xxx.xxx.key # 私钥文件</span><br></pre></td></tr></table></figure><h1 id="配置证书"><a href="#配置证书" class="headerlink" title="配置证书"></a>配置证书</h1><p>在这里，我假设你已经会配置基本的<code>/etc/apache2/sites-available/000-default.conf</code>这个文件来达到已经可以通过 http 的方式来访问你的站点。    </p><p>编辑<code>/etc/apache2/sites-available/default-ssl.conf</code>添加如下配置：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SSLEngine on</span><br><span class="line">ServerName www.domain.com</span><br><span class="line"></span><br><span class="line">SSLCertificateChainFile &#x2F;etc&#x2F;apache2&#x2F;ssl&#x2F;2_xxx.xxx.xxx.crt</span><br><span class="line">SSLCertificateKeyFile &#x2F;etc&#x2F;apache2&#x2F;ssl&#x2F;3_xxx.xxx.xxx.key</span><br><span class="line">SSLCertificateFile &#x2F;etc&#x2F;apache2&#x2F;ssl&#x2F;1_root_bundle.crt</span><br></pre></td></tr></table></figure><h1 id="http自动跳转至https"><a href="#http自动跳转至https" class="headerlink" title="http自动跳转至https"></a>http自动跳转至https</h1><p>在<code>/etc/apache2/sites-available/000-default.conf</code>中添加一下代码：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RewriteEngine on</span><br><span class="line">RewriteCond   %&#123;HTTPS&#125; !&#x3D;on</span><br><span class="line">RewriteRule   ^(.*)  https:&#x2F;&#x2F;%&#123;SERVER_NAME&#125;$1 [L,R]</span><br></pre></td></tr></table></figure><h1 id="使用https"><a href="#使用https" class="headerlink" title="使用https"></a>使用https</h1><p>终端中使能apache2的ssl模块：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a2enmod ssl</span><br></pre></td></tr></table></figure><p>重启apache2：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service apache2 restart</span><br></pre></td></tr></table></figure><p>以上，网站即可通过https访问</p><hr><h1 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h1><p>若需要使用<code>域名/目录</code>这种方式访问即设置反向代理</p><p><strong>例如在我的网站中，使用<a href="http://www.domain.com/wss%E6%9D%A5%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%AD65318%E7%AB%AF%E5%8F%A3%E4%B8%AD%E7%9A%84ws%E6%9C%8D%E5%8A%A1">www.domain.com/wss来代理服务器中65318端口中的ws服务</a></strong>：<br>在<code>000-default.conf</code>中添加：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SSLProxyEngine on</span><br><span class="line">ProxyRequests Off</span><br><span class="line">ProxyPass &#x2F;wss ws:&#x2F;&#x2F;127.0.0.1:65318</span><br><span class="line">ProxyPassReverse &#x2F;wss ws:&#x2F;&#x2F;127.0.0.1:65318</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tutorials </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> apache2 </tag>
+            
+            <tag> ssl </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>coturn服务器搭建及踩坑</title>
       <link href="2022/01/05/coturn-server/"/>
       <url>2022/01/05/coturn-server/</url>
