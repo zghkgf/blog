@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>hexo_add_ICP</title>
+      <link href="2022/03/30/hexo-add-ICP-1/"/>
+      <url>2022/03/30/hexo-add-ICP-1/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo butterfly主题添加备案信息</title>
+      <link href="2022/03/30/hexo-add-ICP/"/>
+      <url>2022/03/30/hexo-add-ICP/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天腾讯云的客服给我打电话让我在网站页脚添加备案信息<br>网上找了一个方法使用后hexo报错<br>链接如下：<br><a href="https://blog.csdn.net/qq_51604330/article/details/114530264">https://blog.csdn.net/qq_51604330/article/details/114530264</a><br>不过总归是让我找到了改的位置，下面介绍修改方法</p><h1 id="添加方法"><a href="#添加方法" class="headerlink" title="添加方法"></a>添加方法</h1><ol><li><p>按照路径找到footer.pug文件<br><img src="https://lpblog-1259256967.cos.ap-chengdu.myqcloud.com/blog/20220330223752.png"></p></li><li><p>打开文件并在图示位置添加一下内容</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.framework-info</span><br><span class="line">  img(src &#x3D; &#39;https:&#x2F;&#x2F;static.dy208.cn&#x2F;o_1dfilp8ruo521thr1hvf18ji17soa.png&#39;)</span><br><span class="line">  span&#x3D; &#39; &#39;</span><br><span class="line">  a(href&#x3D;&#39;https:&#x2F;&#x2F;beian.miit.gov.cn&#x2F;&#39;)&#x3D; &#39;黔ICP备2022002429号-1&#39;</span><br></pre></td></tr></table></figure><p><img src="https://lpblog-1259256967.cos.ap-chengdu.myqcloud.com/blog/20220330223954.png"></p></li></ol><h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p><img src="https://lpblog-1259256967.cos.ap-chengdu.myqcloud.com/blog/20220330224116.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>遗传算法python实现</title>
       <link href="2022/03/27/Genetic-Algorithm/"/>
       <url>2022/03/27/Genetic-Algorithm/</url>
