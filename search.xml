@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>snake optimization</title>
+      <link href="2022/08/09/snake-optimization/"/>
+      <url>2022/08/09/snake-optimization/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>蛇优化(Snake Optimizer, SO)[1]是Hashim, F. A.和 Hussien, A. G两位教授于2022年提出的优化算法，其算法灵感来蛇的觅食和繁殖行为和模式。</p><h1 id="蛇优化算法"><a href="#蛇优化算法" class="headerlink" title="蛇优化算法"></a>蛇优化算法</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>雄性蛇和雌性蛇之间交配的发生受到某些因素的影响。蛇在春末和初夏交配，那时温度低。但交配过程不仅取决于温度，还取决于食物的充足性。如果<strong>温度低</strong>，<strong>食物充足</strong>;雄性蛇会互相争斗，以吸引雌性的注意力。雌性有权决定是否交配。如果发生交配，雌性开始在巢穴或洞穴中产卵，一旦卵出现，它就会离开。</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>与所有元启发式算法一样，SO 首先生成均匀分布的随机种群，以便能够开始优化算法过程。初始化公式如下：</p><script type="math/tex; mode=display">X_{i}=X_{\min }+r \times\left(X_{\max }-X_{\min }\right)</script><p>其中，$X_{i}$ 为第i个位置的解,$r \in[0,1]$，$X_{max}$和$X_{min}$分别为待解决问题的上下界。此后，将初始化的种群分为雄性和雌性两个部分，原文中雄雌比例为1:1。</p><p>SO的探索和开发阶段主要受温度 $Temp$ 和食物量 $Q$ 的影响:</p><script type="math/tex; mode=display">T e m p=\exp (-t / T)$$$Q=c_{1} * \exp (t-T / T)</script><script type="math/tex; mode=display">Q=c_{1} * \exp (t-T / T)</script><p>其中 $t$ 代表当前迭代， $T$ 代表最大迭代次数，$c_{1} = 0.5$ </p><p>…(TODO：补充)</p><h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><p>原文matlab链接：<a href="https://ww2.mathworks.cn/matlabcentral/fileexchange/106465-snake-optimizer">Snake Optimizer</a></p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/468777899">https://zhuanlan.zhihu.com/p/468777899</a><br>Hashim, F. A., &amp; Hussien, A. G. (2022). Snake Optimizer: A novel meta-heuristic optimization algorithm.Knowledge-Based Systems, 108320.<a href="https://www.sciencedirect.com/science/article/pii/S0950705122001150">论文跳转</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Sheet </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Particle Swarm optimization</title>
       <link href="2022/08/09/Particle-Swarm-optimization/"/>
       <url>2022/08/09/Particle-Swarm-optimization/</url>
