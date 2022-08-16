@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>chaotic mapping</title>
+      <link href="2022/08/16/chaotic-mapping/"/>
+      <url>2022/08/16/chaotic-mapping/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在优化领域，混沌映射可以用于替代伪随机数生成器，生成 0 到 1 之间的混沌数。经过实验证明，利用混沌序列进行种群初始化、选择、交叉和变异等操作会影响算法的整个过程，而且常常能取得比伪随机数更好的效果。</p><h1 id="混沌映射特征"><a href="#混沌映射特征" class="headerlink" title="混沌映射特征"></a>混沌映射特征</h1><p>混沌映射被用于生成混沌序列，这是一种由简单的确定性系统产生的随机性序列。一般混沌序列具有以下主要特征：  </p><ol><li>非线性；</li><li>对初值的敏感依赖性；</li><li>遍历性；</li><li>随机性；</li><li>奇异吸引子（混沌吸引子）；</li><li>分数维持性；</li><li>整体稳定局部不稳定；</li><li>长期不可预测性；</li><li>轨道不稳定性及分叉；</li><li>普适性和Feigenbaum常数。  </li></ol><h1 id="常见分类"><a href="#常见分类" class="headerlink" title="常见分类"></a>常见分类</h1><ol><li>Logistic 映射，又称虫口映射  <script type="math/tex; mode=display">z_{k+1}=\mu z_{k}\left(1-z_{k}\right)</script>其中，$z_{0} \notin\{0,0.25,0.5,0.75,1.0\} \quad \mu \in[0,4]$</li></ol><ol><li>PWLCM映射  <script type="math/tex; mode=display">z_{k+1}=\left\{\begin{array}{ll}z_{k} / p, & z_{k} \in(0, p) \\ \left(1-z_{k}\right)(1-p), & z_{k} \in[p, 1)\end{array} ;\right.</script></li></ol><ol><li>Singer映射   <script type="math/tex; mode=display">z_{k+1}=\mu\left(7.86 z_{k}-23.31 z_{k}^{2}+28.75 z_{k}^{3}-13.302875 z_{k}^{4}\right)</script>其中，当 $\mu \in[0.9,1.08]$ 时，Singer 映射具有混沌行为。</li></ol><ol><li><p>Sine 映射  </p><script type="math/tex; mode=display">z_{k+1}=\frac{4}{a} \sin \left(\pi z_{k}\right)</script><p>Sine 映射是一种单峰映射，并且值域为 $[-1, 1]$, 其中 $a \in (0,4]$</p></li><li><p>Gussian映射  </p><script type="math/tex; mode=display">z_{k+1}=\left\{\begin{array}{ll}0, & z_{k}=0 \\ \bmod \left(\mu / z_{k}, 1\right), & z_{k} \neq 0\end{array} ;\right.</script></li><li><p>Tent 映射，又称帐篷映射</p><script type="math/tex; mode=display">z_{k+1}=\left\{\begin{array}{ll}z_{k}/(1-\lambda), & z_{k} \in (0, 1-\lambda] \\ (z_{k}-1+\lambda)/\lambda, & z_{k} \in (1-\lambda, 0]\end{array} ;\right.</script></li></ol><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.cnblogs.com/BaobMa/p/15960929.html">https://www.cnblogs.com/BaobMa/p/15960929.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>鲸鱼算法</title>
       <link href="2022/08/14/whale-algo/"/>
       <url>2022/08/14/whale-algo/</url>
