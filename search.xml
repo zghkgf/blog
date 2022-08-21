@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>黄金正弦算法</title>
+      <link href="2022/08/21/golden-sinAlgo/"/>
+      <url>2022/08/21/golden-sinAlgo/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>黄金正弦算法(Gold-SA)是 Tanyildizi 等 于2017 年提出的一种新型元启发式优化算法，其灵感来源于正弦函数单位圆内扫描类似于待优化问题解的空间搜索，并通过黄金分割率缩小搜索空间以逼近算法最优解。与传统元启发式优化算法相比，Gold-SA 算法具有原理简单、设置参数少、寻优能力强等特点。</p><h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>与其他基于种群的优化算法一样，Gold-SA 算法也从随机生成的种群开始。Gold-SA 算法初始种群旨在通过随机生成每个维度的均匀分布来更好地扫描搜索空间。</p><script type="math/tex; mode=display">V_{i}=rand*(ub-lb)+lb\tag{1}</script><p>式中$V_{i}$是第$i$个个体的初始值$ub$,$lb$为搜索空间的上下限。  </p><h2 id="黄金分割系数"><a href="#黄金分割系数" class="headerlink" title="黄金分割系数"></a>黄金分割系数</h2><p>Gold-SA 算法在位置更新过程中引入黄金分割系数 $x_{1}$ 和 $x_{2}$使“搜索”和“开发”达到良好的平衡，这些系数缩小了搜索空间引领个体趋近最优值。</p><script type="math/tex; mode=display">x_{1}=a*(1-t)+b*t</script><script type="math/tex; mode=display">x_{2}=a*t+b*(1-t)</script><p>式中$a$、$b$为黄金分割比率搜索初始值,一般$a= -\pi$,$b=\pi$,$t$为黄金分比率。$t = (\sqrt{5}-1)/2$  </p><h2 id="位置更新"><a href="#位置更新" class="headerlink" title="位置更新"></a>位置更新</h2><p>随着迭代次数的增加，Gold-SA算法通过下式进行位置更新</p><script type="math/tex; mode=display">\mathrm{V}_{\mathrm{i}}^{\mathrm{t}+1}=\mathrm{V}_{\mathrm{i}}^{\mathrm{t}}|\sin (\mathrm{r} 1)|-\mathrm{r}_{2} \sin \left(\mathrm{r}_{1}\right)\left|\mathrm{x}_{1} \mathrm{D}_{\mathrm{i}}^{\mathrm{t}}-\mathrm{x}_{2} \mathrm{~V}_{\mathrm{i}}^{\mathrm{t}}\right|</script><h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><ol><li><p>初始化参数，设置黄金正弦相关参数</p></li><li><p>计算适应度值</p></li><li><p>计算黄金分割率</p></li><li><p>根据位置更新公式，更新位置。</p></li><li><p>计算适应度值，并更新最优位置，记录最优位置。</p></li><li><p>判断是否达到迭代结束条件，如果达到则输出最后结果，否则重复1-6.</p></li></ol><h1 id="算法结果"><a href="#算法结果" class="headerlink" title="算法结果"></a>算法结果</h1><p><img src="https://lpblog-1259256967.cos.ap-chengdu.myqcloud.com/blog/20220821212225.png" alt="">  </p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] TANYILDIZI E，DEMIＲ G. Golden sine algorithm: a novel math inspired algorithm［J］. Advances in Electrical and Computer Engineering，2017，17(2): 71 －79.</p><p>[2] 周有荣,李娜,周发辉.黄金正弦算法在水文地质参数优化中的应用[J].人民珠江,2020,41(06):117-120+128.</p><p>[3] <a href="https://blog.csdn.net/u011835903/article/details/111699194">https://blog.csdn.net/u011835903/article/details/111699194</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>chaotic mapping</title>
       <link href="2022/08/16/chaotic-mapping/"/>
       <url>2022/08/16/chaotic-mapping/</url>
@@ -730,9 +743,9 @@
       
         <tags>
             
-            <tag> github </tag>
-            
             <tag> hexo </tag>
+            
+            <tag> github </tag>
             
         </tags>
       
