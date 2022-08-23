@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>latex_ocr</title>
+      <link href="2022/08/23/latex-ocr/"/>
+      <url>2022/08/23/latex-ocr/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>尝试了一下两个做图片转latex公式的平台，科大讯飞和好未来。科大讯飞每天免费500次，但是识别的不准；好未来识别的准，但只有100次的试用。我还是选择用科大讯飞的，识别错的地方改改就行。</p><p>基于科大讯飞的公式识别接口，实现了调用微信dll文件截图功能，识别后自动保存至剪贴板。</p><h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul><li>讯飞公式识别API： 一天免费500次</li><li>PrScrn.dll：旧版微信的截图dll <a href="https://github.com/callmeLP/latex_ocr/tree/main/xf">下载链接</a>。</li><li>python</li></ul><h1 id="接口申请"><a href="#接口申请" class="headerlink" title="接口申请"></a>接口申请</h1><h2 id="科大讯飞"><a href="#科大讯飞" class="headerlink" title="科大讯飞"></a>科大讯飞</h2><p><a href="https://console.xfyun.cn/">https://console.xfyun.cn/</a></p><h2 id="好未来"><a href="#好未来" class="headerlink" title="好未来"></a>好未来</h2><p><a href="https://ai.100tal.com/">https://ai.100tal.com/</a></p><h1 id="代码逻辑"><a href="#代码逻辑" class="headerlink" title="代码逻辑"></a>代码逻辑</h1><p>代码去这里下载：<a href="https://github.com/callmeLP/latex_ocr/tree/main/xf">github代码地址</a>  </p><ul><li><p><code>WebITRTeach.py</code>是科大讯飞官网上的demo，我做了一点儿小修改。现在是传入图片路径，然后向讯飞发post请求。<br>  发送的原理就是把图片转成base64格式的数据，填到body里去。</p></li><li><p><code>main.py</code>主要是实现截图、截图时隐藏窗口、将结果复制到剪切板等操作。</p><ol><li>截图 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">os.system(<span class="string">&#x27;RUNDLL32.EXE PrScrn.dll PrScrn&#x27;</span>)</span><br></pre></td></tr></table></figure></li><li>截图时隐藏窗口<br> 调用ctype获取窗口句柄和windll <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">window_handle = ctypes.windll.kernel32.GetConsoleWindow()</span><br><span class="line"><span class="comment"># 0：隐藏；6：最小化</span></span><br><span class="line"><span class="comment"># 1：显示；3：最大化</span></span><br><span class="line">ctypes.windll.user32.ShowWindow(window_handle, <span class="number">0</span>)</span><br><span class="line">time.sleep(<span class="number">0.5</span>)</span><br><span class="line">ctypes.windll.user32.ShowWindow(window_handle, <span class="number">1</span>)</span><br></pre></td></tr></table></figure></li><li>从剪贴板中读取图片 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">img = ImageGrab.grabclipboard()</span><br></pre></td></tr></table></figure></li><li>结果复制到剪切板 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pyperclip.copy(content)</span><br></pre></td></tr></table></figure><h1 id="运行方法"><a href="#运行方法" class="headerlink" title="运行方法"></a>运行方法</h1>修改<code>WebITRTeach.py</code>文件中的<code>APPID</code> <code>Secret</code> <code>APIKey</code>三个参数（自己去平台上申请）,然后：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure><h1 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h1><img src="https://lpblog-1259256967.cos.ap-chengdu.myqcloud.com/blog/latex_ocr.gif" alt=""></li></ol></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Log </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Latex </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Github的.gitignore忽略文件</title>
       <link href="2022/08/22/github-ignore/"/>
       <url>2022/08/22/github-ignore/</url>
